@@ -348,9 +348,7 @@
     to { opacity: 1; }
   }
 
-  .dots { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; z-index: 20; }
-  .dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.8); box-shadow: 0 2px 6px rgba(124,212,222,0.3); transition: all 0.3s; cursor: pointer; }
-  .dot.active { background: var(--blue); transform: scale(1.25); }
+  
 
   .tiny-hint { font-size: 13px; color: var(--ink-soft); letter-spacing: 2px; margin-top: 10px; font-weight: 600; }
 
@@ -726,7 +724,7 @@
 
   </div>
 
-  <div class="dots" id="dots"></div>
+  
 
   <div class="foot-txt" id="footTxt">
     <div>進來先答對一個問題</div>
@@ -776,24 +774,14 @@
   // ===== 换页 =====
   const pages = document.querySelectorAll('.page');
   let current = 0;
-  const dotsBox = document.getElementById('dots');
-  pages.forEach((_, i) => {
-    const d = document.createElement('span');
-    d.className = 'dot' + (i === 0 ? ' active' : '');
-    d.onclick = () => go(i);
-    dotsBox.appendChild(d);
-  });
-  const dots = dotsBox.querySelectorAll('.dot');
 
   function go(n) {
     if (n === current || n < 0 || n >= pages.length) return;
     pages[current].classList.remove('active');
     pages[current].classList.add('prev');
-    dots[current].classList.remove('active');
     current = n;
     pages[current].classList.remove('prev');
     pages[current].classList.add('active');
-    dots[current].classList.add('active');
     // 底部提示文字只在第一页显示
     document.getElementById('footTxt').style.display = (current === 0) ? '' : 'none';
     // 进入许愿动画页时触发动画
