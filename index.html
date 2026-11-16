@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>生日快乐</title>
+<style>
+  @font-face {
+    font-family: 'ZCOOL KuaiLe';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('assets/fonts/ZCOOLKuaiLe.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'ZCOOL XiaoWei';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('assets/fonts/ZCOOLXiaoWei.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('assets/fonts/ZCOOLQingKeHuangYou.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'M PLUS Rounded 1c';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('assets/fonts/MPLUSRounded-0.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Zen Maru Gothic';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('assets/fonts/ZenMaru-400.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Zen Maru Gothic';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('assets/fonts/ZenMaru-500.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Zen Maru Gothic';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('assets/fonts/ZenMaru-700.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Baloo 2';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('assets/fonts/Baloo2.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Baloo 2';
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url('assets/fonts/Baloo2-700.woff2') format('woff2');
+  }
+  :root {
+    --mint: #EFFBFB;
+    --grid: #D8F0F0;
+    --blue: #7CD4DE;
+    --blue-soft: #A8E3EB;
+    --cream: #FFF9E0;
+    --pink: #FFD9D9;
+    --brown: #D8B98A;
+    --ink: #6B8A8E;
+    --ink-soft: #8FB0B4;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: "Zen Maru Gothic", "M PLUS Rounded 1c", "ZCOOL KuaiLe", "Baloo 2", "PingFang SC", "YouYuan", sans-serif;
+    background-color: var(--mint);
+    background-image:
+      repeating-linear-gradient(45deg, var(--grid) 0 2px, transparent 2px 26px),
+      repeating-linear-gradient(-45deg, var(--grid) 0 2px, transparent 2px 26px);
+    min-height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
+    color: var(--ink);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .pages { position: relative; width: 100vw; height: 100vh; }
+  .page {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 40px 30px;
+    opacity: 0; visibility: hidden;
+    transition: opacity 2s ease, transform 2s ease;
+    transform: translateX(30px);
+  }
+  .page.active { opacity: 1; visibility: visible; transform: translateX(0); }
+  .page.prev { transform: translateX(-30px); }
+
+  /* ===== 彩色手写标题 ===== */
+  .birthday-title {
+    font-family: "Baloo 2", "ZCOOL KuaiLe", "Comic Sans MS", sans-serif;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: 3px;
+    margin-bottom: 4px;
+  }
+  .hbd-title-img {
+    width: min(82vw, 340px);
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* 第一页装饰插画 */
+  .deco-pic {
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.9;
+  }
+  .dp-knife { top: 12%; left: 6%; width: 9%; transform: rotate(-18deg); }
+  .dp-cake { bottom: 22%; right: 6%; width: 11%; transform: rotate(14deg); }
+  .dp-star { top: 24%; right: 10%; width: 6%; transform: rotate(20deg); }
+  .dp-heart { bottom: 34%; left: 8%; width: 6%; transform: rotate(-12deg); }
+  .birthday-title .line { display: block; }
+  .birthday-title .l1 { font-size: clamp(34px, 9vw, 56px); }
+  .birthday-title .l2 { font-size: clamp(34px, 9vw, 56px); }
+
+  .c0{color:#F9D56E;} .c1{color:#E86A58;} .c2{color:#F4A6A6;} .c3{color:#7BC8A4;}
+  .c4{color:#8AC6D1;} .c5{color:#9B8AC4;} .c6{color:#F9B56E;} .c7{color:#E88AA0;}
+  .c8{color:#7BC8A4;} .c9{color:#8AC6D1;} .c10{color:#F9D56E;} .c11{color:#E86A58;}
+  .c12{color:#F4A6A6;} .c13{color:#9B8AC4;}
+
+  .deco { position: relative; }
+  .deco .heart {
+    position: absolute; font-size: 22px; color: #F9D56E; opacity: 0.9;
+  }
+
+  /* 日期栏（纯文字，无气泡） */
+  .date-bar {
+    display: inline-block;
+    padding: 4px 0;
+    color: #B0DEEE;
+    font-family: "Zen Maru Gothic", "Baloo 2", "PingFang SC", sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-size: 22px;
+    margin: 12px 0;
+  }
+  .date-bar .dim { color: #A8C4C8; }
+  .date-bar .dim2 { color: #C3E4F0; }
+
+  .q { font-size: 22px; letter-spacing: 2px; font-weight: 700; margin: 6px 0; }
+  .q-sub { font-size: 15px; color: var(--ink-soft); letter-spacing: 3px; font-weight: 600; }
+
+  /* ===== 输入框 ===== */
+  .field { width: min(320px, 80vw); margin-top: 26px; text-align: left; }
+  .field label { font-size: 14px; color: var(--ink-soft); letter-spacing: 2px; font-weight: 700; display: block; margin-bottom: 8px; }
+  .field input {
+    width: 100%; background: #fff;
+    padding: 14px 16px; font-size: 17px; font-family: inherit;
+    color: var(--ink); outline: none; letter-spacing: 1px; border-radius: 14px;
+    border: none;
+    box-shadow: 0 4px 14px rgba(124,212,222,0.35);
+  }
+  .field input::placeholder { color: #B5C9C9; }
+  .field input:focus { box-shadow: 0 4px 18px rgba(124,212,222,0.55); }
+
+  /* ===== 按钮 ===== */
+  .btn {
+    margin-top: 18px; display: inline-block;
+    background: #A8E3EB; color: #fff;
+    border-radius: 999px;
+    padding: 13px 46px; font-size: 17px; font-weight: 700; font-family: inherit;
+    letter-spacing: 5px; cursor: pointer;
+    box-shadow: 0 6px 16px rgba(124,212,222,0.45);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    border: none;
+  }
+  .btn:hover { background: var(--blue-soft); }
+  .btn:active { transform: translateY(2px); box-shadow: 0 3px 10px rgba(124,212,222,0.4); }
+  .btn.small { padding: 11px 30px; letter-spacing: 3px; font-size: 15px; }
+  .btn.ghost { background: #fff; color: var(--blue); }
+
+  .err { color: #E88AA0; font-size: 14px; font-weight: 700; letter-spacing: 1px; margin-top: 12px; min-height: 20px; }
+
+  /* ===== 小狗 ===== */
+  .dog-box { margin-bottom: 6px; position: relative; }
+  .dog-box img { width: min(46vw, 240px); height: auto; display: block; }
+  .dog-box.bounce { animation: dogBounce 0.5s ease; }
+  #dog3 { margin-left: 24px; }
+  @keyframes dogBounce {
+    0%,100% { transform: translateY(0); }
+    30% { transform: translateY(-16px); }
+    60% { transform: translateY(4px); }
+  }
+
+  .greeting { font-size: clamp(32px, 8.5vw, 50px); font-weight: 700; letter-spacing: 6px; margin: 14px 0 4px; color: var(--blue); font-family: "Zen Maru Gothic", "Baloo 2", sans-serif; }
+  .greet-name { font-size: 18px; color: var(--ink-soft); letter-spacing: 2px; font-weight: 700; }
+
+  /* 第二页图片 */
+  .page2-top { margin-bottom: 4px; }
+  .page2-top img { width: min(80vw, 360px); height: auto; display: block; }
+  .page2-cal { margin-bottom: 4px; position: relative; }
+  .page2-cal img { width: min(66vw, 300px); height: auto; display: block; }
+  .page2-cal .cake-deco {
+    position: absolute;
+    top: 3%;
+    left: 14%;
+    width: 14%;
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+
+  /* 橘猫生日页 */
+  .cat-page {
+    position: relative;
+    width: 100%;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .cat-main {
+    position: relative;
+    z-index: 2;
+  }
+  .cat-main img { width: min(83vw, 340px); height: auto; display: block; }
+  .cat-title {
+    position: relative;
+    z-index: 2;
+    margin-top: 18px;
+    font-size: clamp(22px, 6vw, 30px);
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #8B7355;
+    font-family: "Zen Maru Gothic", "Baloo 2", "PingFang SC", sans-serif;
+  }
+
+  /* 许愿动画页 */
+  .wish-page {
+    position: relative;
+    width: 100%; height: 100vh;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .wish-bg {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: url('assets/wish_bg.png') center / cover no-repeat;
+    transition: opacity 2s ease;
+  }
+  .wish-meme {
+    position: absolute;
+    z-index: 2;
+    opacity: 0;
+    transform: scale(0.3);
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+  }
+  .wish-meme img { width: min(70vw, 300px); height: auto; display: block; }
+  .wish-meme.show { opacity: 1; transform: scale(1); }
+  .wish-meme.hide { opacity: 0; transform: scale(1.1); }
+  .wish-text {
+    position: absolute;
+    z-index: 3;
+    font-size: clamp(34px, 9vw, 52px);
+    font-weight: 700;
+    letter-spacing: 8px;
+    color: #5A4A42;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    font-family: "Zen Maru Gothic", "Baloo 2", "PingFang SC", sans-serif;
+  }
+  .wish-text.show { opacity: 1; }
+  .wish-text.hide { opacity: 0; }
+  .wish-final {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 1;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    transition: opacity 2s ease;
+    background: #000;
+  }
+  .wish-final img { width: 100%; height: 100%; object-fit: cover; }
+  .wish-final.show { opacity: 1; }
+  .wish-page.dark .wish-bg { opacity: 0; }
+  .wish-next {
+    position: absolute;
+    bottom: 8vh;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    font-family: "Zen Maru Gothic", "PingFang SC", sans-serif;
+    display: flex; align-items: center; gap: 6px;
+    padding: 0;
+  }
+  .wish-next .wish-arrow { font-size: 20px; line-height: 1; }
+  .wish-next.show { opacity: 1; }
+  .wish-ask {
+    position: absolute;
+    bottom: 16vh;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    font-family: "Zen Maru Gothic", "PingFang SC", sans-serif;
+  }
+  .wish-ask.show { opacity: 1; }
+
+  .msg {
+    font-size: 18px; line-height: 2.1; max-width: 420px; margin-top: 8px;
+    letter-spacing: 1px; font-weight: 600;
+    background: rgba(255,255,255,0.75);
+    border-radius: 18px; padding: 18px 24px;
+    box-shadow: 0 6px 18px rgba(124,212,222,0.28);
+  }
+
+  .btn-row { display: flex; gap: 16px; margin-top: 26px; }
+  .delay-btn {
+    opacity: 0;
+  }
+  .page.active .delay-btn {
+    animation: btnDelayIn 0.6s ease 2s forwards;
+  }
+  @keyframes btnDelayIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .dots { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; z-index: 20; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.8); box-shadow: 0 2px 6px rgba(124,212,222,0.3); transition: all 0.3s; cursor: pointer; }
+  .dot.active { background: var(--blue); transform: scale(1.25); }
+
+  .tiny-hint { font-size: 13px; color: var(--ink-soft); letter-spacing: 2px; margin-top: 10px; font-weight: 600; }
+
+  .foot-wave {
+    position: fixed; bottom: 0; left: 0; right: 0; height: 64px; z-index: 5;
+    background: var(--blue-soft);
+  }
+  .foot-wave .wave {
+    position: absolute; top: -18px; left: 0; right: 0; height: 18px;
+    background:
+      radial-gradient(circle at 10px 0, var(--blue-soft) 8px, transparent 9px) 0 0 / 40px 18px repeat-x;
+  }
+
+  .foot-txt {
+    position: fixed; bottom: 70px; left: 0; right: 0; text-align: center; z-index: 6;
+    font-size: 15px; font-weight: 700; letter-spacing: 3px; color: var(--ink);
+  }
+  .foot-txt .t2 { font-size: 12px; color: var(--ink-soft); letter-spacing: 2px; margin-top: 4px; }
+
+  /* ===== 弹窗 ===== */
+  .modal-mask {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 100;
+    background: rgba(107,138,142,0.35);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+  }
+  .modal-mask.show { opacity: 1; visibility: visible; }
+  .modal {
+    background: var(--cream);
+    border-radius: 24px;
+    padding: 34px 38px;
+    text-align: center;
+    max-width: 340px; width: 88vw;
+    box-shadow: 0 12px 40px rgba(124,212,222,0.35);
+    transform: scale(0.6) translateY(20px);
+    opacity: 0;
+    transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 1s ease;
+  }
+  .modal-mask.show .modal { transform: scale(1) translateY(0); opacity: 1; }
+  .modal .m-title {
+    font-size: 26px; font-weight: 700; color: #D97A80;
+    letter-spacing: 2px; margin-bottom: 10px;
+    margin-left: 18px;
+  }
+  .modal .m-sub { font-size: 13px; color: #6E8F8A; letter-spacing: 2px; margin-bottom: 16px; margin-top: 18px; }
+  .modal .m-answers { font-size: 17px; color: #7A8A8C; line-height: 2; letter-spacing: 1px; font-weight: 600; }
+  .modal .m-btn {
+    margin-top: 22px;
+    background: var(--blue); color: #fff; border: none;
+    border-radius: 999px; padding: 12px 40px;
+    font-size: 16px; font-weight: 700; letter-spacing: 3px; cursor: pointer;
+    font-family: inherit;
+    box-shadow: 0 6px 16px rgba(124,212,222,0.45);
+  }
+  .modal .m-btn:hover { background: var(--blue-soft); }
+  .modal .m-btn.ghost { background: #fff; color: var(--blue); box-shadow: none; border: 1px solid var(--blue-soft); }
+  .modal-btn-row { display: flex; gap: 14px; justify-content: center; margin-top: 22px; }
+  .modal-btn-row .m-btn { margin-top: 0; padding: 12px 28px; }
+
+  /* 愿望输入框 */
+  .wish-input-box { margin-top: 16px; width: 100%; max-width: 340px; }
+  .wish-input {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid var(--blue-soft);
+    border-radius: 999px;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: var(--ink);
+    background: rgba(255,255,255,0.85);
+    outline: none;
+    text-align: center;
+    font-family: "Zen Maru Gothic", "PingFang SC", sans-serif;
+    box-shadow: 0 4px 12px rgba(124,212,222,0.2);
+  }
+  .wish-input::placeholder { color: #B8CCD0; }
+  .wish-input:focus { border-color: var(--blue); }
+
+  /* 祝福信页 */
+  .letter-box {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .letter {
+    width: min(92vw, 100%);
+    height: 88vh;
+    overflow: hidden;
+    text-align: left;
+    background: url('assets/letter_bg.png') center / 100% 100% no-repeat;
+    border-radius: 20px;
+    padding: 15% 13% 17% 15%;
+    line-height: 1.7;
+    letter-spacing: 0.4px;
+    user-select: text;
+    -webkit-user-select: text;
+    box-shadow: 0 6px 18px rgba(124,212,222,0.28);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+  .letter p {
+    margin: 0 0 8px;
+    font-size: 13px;
+    color: #6B5A50;
+    font-weight: 500;
+  }
+  .letter p:first-child {
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .letter p:last-child { margin-bottom: 0; }
+  .letter-copy {
+    position: absolute;
+    bottom: 6%;
+    right: 8%;
+    z-index: 5;
+    background: none;
+    border: none;
+    color: #6B5A50;
+    font-size: 14px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    padding: 4px 6px;
+    font-family: "Zen Maru Gothic", "PingFang SC", sans-serif;
+    font-weight: 500;
+  }
+
+  /* 流星动画 */
+  .meteor-layer {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 200;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .meteor-layer.play {
+    opacity: 1;
+    visibility: visible;
+  }
+  .meteor-img {
+    position: absolute;
+    width: 60%;
+    height: auto;
+    top: -10%;
+    left: 30%;
+    animation: meteorFly 2.2s ease-out forwards;
+  }
+  @keyframes meteorFly {
+    0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+    15% { opacity: 1; }
+    100% { transform: translate(-38vw, 62vh) rotate(-8deg); opacity: 0; }
+  }
+
+  /* 第六页继续按钮 */
+  .letter-next {
+    position: fixed;
+    bottom: 8vh;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    background: #fff;
+    border: none;
+    color: var(--blue);
+  }
+
+  /* 第七页：亲亲动画 */
+  .kiss-page {
+    position: relative;
+    width: 100%; height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .kiss-text {
+    position: absolute;
+    z-index: 2;
+    font-size: clamp(26px, 7vw, 38px);
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #8AA0A4;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    font-family: "ZCOOL KuaiLe", "Baloo 2", "PingFang SC", sans-serif;
+  }
+  .kiss-text.show { opacity: 1; }
+  .kiss-text.hide { opacity: 0; }
+  #kissText1 {
+    color: #6B5A50;
+    font-size: clamp(34px, 10vw, 56px);
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-family: "ZCOOL KuaiLe", "Baloo 2", "PingFang SC", sans-serif;
+  }
+  .kiss-text-rainbow span { display: inline-block; }
+  .kiss-text-rainbow .k1 { color: #F9D56E; }
+  .kiss-text-rainbow .k2 { color: #E86A58; }
+  .kiss-text-rainbow .k3 { color: #F4A6A6; }
+  .kiss-text-rainbow .k4 { color: #7BC8A4; }
+  .kiss-text-rainbow .k5 { color: #8AC6D1; }
+  .kiss-text-rainbow .k6 { color: #9B8AC4; }
+  .kiss-text-rainbow .k7 { color: #F9B56E; }
+  .kiss-text-rainbow .k8 { color: #E88AA0; }
+  .kiss-text-rainbow .k9 { color: #7BC8A4; }
+  .kiss-text-rainbow .k10 { color: #8AC6D1; }
+  .kiss-text-rainbow .k11 { color: #E86A58; }
+  .kiss-meme {
+    position: absolute;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  .kiss-meme img { width: min(60vw, 260px); height: auto; display: block; }
+  .kiss-meme.show { opacity: 1; }
+  .kiss-meme.hide { opacity: 0; }
+  .kiss-img {
+    position: absolute;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  .kiss-img img { width: min(72vw, 320px); height: auto; display: block; }
+  .kiss-img.show { opacity: 1; }
+  .kiss-img.hide { opacity: 0; }
+</style>
+</head>
+<body>
+
+  <div class="pages">
+
+    <!-- 第1页：密码门 -->
+    <section class="page active" data-page="0">
+      <img class="deco-pic dp-knife" src="assets/deco_knife.png" alt="">
+      <img class="deco-pic dp-cake" src="assets/deco_cake.png" alt="">
+      <img class="deco-pic dp-star" src="assets/deco_star.png" alt="">
+      <img class="deco-pic dp-heart" src="assets/deco_heart.png" alt="">
+      <div class="deco birthday-title">
+        <span class="line l1">
+          <span class="c0">H</span><span class="c1">A</span><span class="c2">P</span><span class="c3">P</span><span class="c4">Y</span>
+        </span>
+        <span class="line l2">
+          <span class="c5">B</span><span class="c6">I</span><span class="c7">R</span><span class="c8">T</span><span class="c9">H</span><span class="c10">D</span><span class="c11">A</span><span class="c12">Y</span>
+        </span>
+        <span class="heart" style="top:-6px; left:-18px;">♥</span>
+        <span class="heart" style="top:14px; right:-16px;">♥</span>
+      </div>
+      <div class="date-bar"><span class="dim">To</span>：亲爱的先生</div>
+
+      <div class="q">你是誰？</div>
+      <div class="q-sub">答對了，門就開。</div>
+
+      <div class="field">
+        <label>你的答案</label>
+        <input id="answer" type="text" placeholder="打在這裡···" autocomplete="off">
+      </div>
+      <div class="err" id="err"></div>
+      <button class="btn" onclick="checkAnswer()">進去</button>
+      <div class="tiny-hint">提示：5個字</div>
+    </section>
+
+    <!-- 第2页：橘猫生日 -->
+    <section class="page" data-page="1">
+      <div class="cat-page">
+        <div class="cat-main">
+          <img src="assets/cat_bday.png" alt="橘猫生日">
+        </div>
+      </div>
+      <div class="btn-row delay-btn">
+        <button class="btn ghost small" onclick="go(0)">上一頁</button>
+        <button class="btn small" onclick="go(2)">繼續</button>
+      </div>
+    </section>
+
+    <!-- 第3页：日历 -->
+    <section class="page" data-page="2">
+      <div class="page2-top">
+        <img src="assets/page2_top.png" alt="生日插画">
+      </div>
+      <div class="page2-cal">
+        <img src="assets/page2_cal.png" alt="11月日历">
+        <img class="cake-deco" src="assets/cake_deco.png" alt="蛋糕">
+      </div>
+      <div class="btn-row delay-btn">
+        <button class="btn ghost small" onclick="go(1)">上一頁</button>
+        <button class="btn small" onclick="go(3)">繼續</button>
+      </div>
+    </section>
+
+    <!-- 第4页：许愿动画 -->
+    <section class="page" data-page="3">
+      <div class="wish-page">
+        <div class="wish-bg"></div>
+        <div class="wish-meme" id="wishMeme">
+          <img src="assets/wish_meme.png" alt="许个愿">
+        </div>
+        <div class="wish-text" id="wishText1">现在</div>
+        <div class="wish-text" id="wishText2">闭眼</div>
+        <div class="wish-final" id="wishFinal">
+          <img src="assets/wish_final.png" alt="Happy Birthday">
+        </div>
+        <div class="wish-ask" id="wishAsk">许好了嘛？</div>
+        <button class="wish-next" id="wishNext" onclick="go(4)">继续 <span class="wish-arrow">→</span></button>
+      </div>
+    </section>
+
+    <!-- 第5页：许愿 -->
+    <section class="page" data-page="4">
+      <div class="dog-box" id="dog3">
+        <img src="assets/rabbit.png" alt="兔子">
+      </div>
+
+      <p class="msg" id="wishMsg">❤️写下你的愿望吧~</p>
+      <div class="wish-input-box">
+        <input type="text" id="wishInput" class="wish-input" placeholder="在这里写下愿望···" maxlength="50">
+      </div>
+      <div class="btn-row">
+        <button class="btn ghost small" onclick="go(3)">上一頁</button>
+        <button class="btn small" onclick="confirmWish()">確認</button>
+      </div>
+    </section>
+
+    <!-- 第6页：祝福信 -->
+    <section class="page" data-page="5">
+      <div class="letter-box">
+        <div class="letter" id="letter">
+          <p>To the one and only Mr.,</p>
+          <p>Happy Birthday!</p>
+          <p>I know you have a lot on your mind, but today, your only mission is to be happy and relax.</p>
+          <p>You don't have to be the invincible hero all the time. It's okay to take a break, and it's okay to be a little "lost" for a while. Just remember that your puppy is always right here, lying beside you.</p>
+          <p>I miss the clingy Mr., who always stands behind his puppy.</p>
+          <p>Keep being the bossy and gentle guy I adore. Your personal puppy will always love you.</p>
+          <p>Wishing you a year of great game victories, happiness, and forever bliss!</p>
+          <p>致我唯一亲爱的先生,</p>
+          <p>Your Puppy 🐾</p>
+          <button class="letter-copy" onclick="copyLetter()">复制一份！</button>
+        </div>
+      </div>
+      <button class="btn small letter-next" onclick="go(6)">继续</button>
+    </section>
+
+    <!-- 第7页：亲亲动画 -->
+    <section class="page" data-page="6">
+      <div class="kiss-page">
+        <div class="kiss-text kiss-text-rainbow" id="kissText1"><span class="k1">先</span><span class="k2">生</span><span class="k3">2</span><span class="k4">3</span><span class="k5">岁</span><span class="k6">生</span><span class="k7">日</span><span class="k8">快</span><span class="k9">乐</span><span class="k10">~</span><span class="k11">!</span></div>
+        <div class="kiss-text" id="kissText2">给先生一个</div>
+        <div class="kiss-text" id="kissText3">是什么呢</div>
+        <div class="kiss-text" id="kissText4">什么呢?</div>
+        <div class="kiss-meme" id="kissMeme">
+          <img src="assets/q_meme.png" alt="疑惑">
+        </div>
+        <div class="kiss-text" id="kissText5">是亲亲!</div>
+        <div class="kiss-img" id="kissImg">
+          <img src="assets/kiss.png" alt="亲亲">
+        </div>
+        <div class="kiss-text" id="kissText6">当然</div>
+        <div class="kiss-text" id="kissText7">狗也要!</div>
+        <div class="kiss-img" id="kissImg2">
+          <img src="assets/kiss_here.png" alt="亲亲这里">
+        </div>
+        <div class="kiss-text" id="kissText8">看好了嘛 先生?</div>
+        <div class="kiss-text" id="kissText9">看好啦就来找🐶kiss!!</div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="dots" id="dots"></div>
+
+  <div class="foot-txt" id="footTxt">
+    <div>進來先答對一個問題</div>
+    <div class="t2">答案，別人答不上來</div>
+  </div>
+
+  <div class="foot-wave">
+    <div class="wave"></div>
+  </div>
+
+  <!-- 弹窗 -->
+  <div class="modal-mask" id="modalMask">
+    <div class="modal">
+      <div class="m-title">恭喜你答对啦！</div>
+      <div class="m-sub">答案有四个😝</div>
+      <div class="m-answers">
+        嘿嘿不告诉先生~
+      </div>
+      <button class="m-btn" onclick="closeModal()">確定</button>
+    </div>
+  </div>
+
+  <!-- 确定嘛弹窗 -->
+  <div class="modal-mask" id="confirmMask">
+    <div class="modal">
+      <div class="m-title">确定嘛？</div>
+      <div class="modal-btn-row">
+        <button class="m-btn ghost" onclick="rethinkWish()">再想想</button>
+        <button class="m-btn" onclick="submitWish()">就这个！</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 流星动画 -->
+  <div class="meteor-layer" id="meteorLayer">
+    <img class="meteor-img" src="assets/meteor_only.png" alt="流星">
+  </div>
+
+  <!-- 许愿成功弹窗 -->
+  <div class="modal-mask" id="successMask">
+    <div class="modal">
+      <div class="m-title">恭喜你，许愿成功！</div>
+    </div>
+  </div>
+
+<script>
+  // ===== 换页 =====
+  const pages = document.querySelectorAll('.page');
+  let current = 0;
+  const dotsBox = document.getElementById('dots');
+  pages.forEach((_, i) => {
+    const d = document.createElement('span');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => go(i);
+    dotsBox.appendChild(d);
+  });
+  const dots = dotsBox.querySelectorAll('.dot');
+
+  function go(n) {
+    if (n === current || n < 0 || n >= pages.length) return;
+    pages[current].classList.remove('active');
+    pages[current].classList.add('prev');
+    dots[current].classList.remove('active');
+    current = n;
+    pages[current].classList.remove('prev');
+    pages[current].classList.add('active');
+    dots[current].classList.add('active');
+    // 底部提示文字只在第一页显示
+    document.getElementById('footTxt').style.display = (current === 0) ? '' : 'none';
+    // 进入许愿动画页时触发动画
+    if (current === 3) {
+      playWishAnimation();
+    } else {
+      resetWishAnimation();
+    }
+    // 进入亲亲动画页时触发动画
+    if (current === 6) {
+      playKissAnimation();
+    } else {
+      resetKissAnimation();
+    }
+  }
+
+  // ===== 许愿动画 =====
+  let wishTimers = [];
+  function playWishAnimation() {
+    resetWishAnimation();
+    const meme = document.getElementById('wishMeme');
+    const text1 = document.getElementById('wishText1');
+    const text2 = document.getElementById('wishText2');
+    const final = document.getElementById('wishFinal');
+    const next = document.getElementById('wishNext');
+    const ask = document.getElementById('wishAsk');
+    const page = document.querySelector('.wish-page');
+    // 表情包弹出
+    wishTimers.push(setTimeout(() => { meme.classList.add('show'); }, 100));
+    // 5s 后表情包淡出，「现在」弹出
+    wishTimers.push(setTimeout(() => {
+      meme.classList.add('hide');
+      text1.classList.add('show');
+    }, 5100));
+    // 「现在」显示 3s 后淡出，「闭眼」弹出
+    wishTimers.push(setTimeout(() => {
+      text1.classList.add('hide');
+      text2.classList.add('show');
+    }, 8100));
+    // 「闭眼」显示 3s 后淡出，背景变黑，过渡到最终图
+    wishTimers.push(setTimeout(() => {
+      text2.classList.add('hide');
+      page.classList.add('dark');
+      final.classList.add('show');
+    }, 11100));
+    // 最终图淡入后，显示「许好了嘛？」和「继续」按钮
+    wishTimers.push(setTimeout(() => {
+      ask.classList.add('show');
+      next.classList.add('show');
+    }, 13100));
+  }
+  function resetWishAnimation() {
+    wishTimers.forEach(t => clearTimeout(t));
+    wishTimers = [];
+    const meme = document.getElementById('wishMeme');
+    const text1 = document.getElementById('wishText1');
+    const text2 = document.getElementById('wishText2');
+    const final = document.getElementById('wishFinal');
+    const next = document.getElementById('wishNext');
+    const ask = document.getElementById('wishAsk');
+    const page = document.querySelector('.wish-page');
+    if (meme) { meme.classList.remove('show'); meme.classList.remove('hide'); }
+    if (text1) { text1.classList.remove('show'); text1.classList.remove('hide'); }
+    if (text2) { text2.classList.remove('show'); text2.classList.remove('hide'); }
+    if (final) final.classList.remove('show');
+    if (next) next.classList.remove('show');
+    if (ask) ask.classList.remove('show');
+    if (page) page.classList.remove('dark');
+  }
+
+  // ===== 亲亲动画 =====
+  let kissTimers = [];
+  function playKissAnimation() {
+    resetKissAnimation();
+    const t1 = document.getElementById('kissText1');
+    const t2 = document.getElementById('kissText2');
+    const t3 = document.getElementById('kissText3');
+    const t4 = document.getElementById('kissText4');
+    const t5 = document.getElementById('kissText5');
+    const t6 = document.getElementById('kissText6');
+    const t7 = document.getElementById('kissText7');
+    const t8 = document.getElementById('kissText8');
+    const t9 = document.getElementById('kissText9');
+    const meme = document.getElementById('kissMeme');
+    const img = document.getElementById('kissImg');
+    const img2 = document.getElementById('kissImg2');
+    // 文字1「先生23岁生日快乐~!」
+    kissTimers.push(setTimeout(() => { t1.classList.add('show'); }, 100));
+    // 3s后文字1消失，文字2出现
+    kissTimers.push(setTimeout(() => { t1.classList.add('hide'); t2.classList.add('show'); }, 3100));
+    // 6s后文字2消失，文字3出现
+    kissTimers.push(setTimeout(() => { t2.classList.add('hide'); t3.classList.add('show'); }, 6100));
+    // 9s后文字3消失，文字4出现
+    kissTimers.push(setTimeout(() => { t3.classList.add('hide'); t4.classList.add('show'); }, 9100));
+    // 12s后文字4消失，表情包出现
+    kissTimers.push(setTimeout(() => { t4.classList.add('hide'); meme.classList.add('show'); }, 12100));
+    // 15s后表情包消失，文字5出现
+    kissTimers.push(setTimeout(() => { meme.classList.add('hide'); t5.classList.add('show'); }, 15100));
+    // 18s后文字5消失，亲亲图出现
+    kissTimers.push(setTimeout(() => { t5.classList.add('hide'); img.classList.add('show'); }, 18100));
+    // 21s后亲亲图消失，文字6「当然」出现
+    kissTimers.push(setTimeout(() => { img.classList.add('hide'); t6.classList.add('show'); }, 21100));
+    // 24s后文字6消失，文字7「狗也要!」出现
+    kissTimers.push(setTimeout(() => { t6.classList.add('hide'); t7.classList.add('show'); }, 24100));
+    // 27s后文字7消失，新图出现
+    kissTimers.push(setTimeout(() => { t7.classList.add('hide'); img2.classList.add('show'); }, 27100));
+    // 30s后新图消失，文字8「看好了嘛 先生?」出现
+    kissTimers.push(setTimeout(() => { img2.classList.add('hide'); t8.classList.add('show'); }, 30100));
+    // 33s后文字8消失，文字9出现
+    kissTimers.push(setTimeout(() => { t8.classList.add('hide'); t9.classList.add('show'); }, 33100));
+  }
+  function resetKissAnimation() {
+    kissTimers.forEach(t => clearTimeout(t));
+    kissTimers = [];
+    const t1 = document.getElementById('kissText1');
+    const t2 = document.getElementById('kissText2');
+    const t3 = document.getElementById('kissText3');
+    const t4 = document.getElementById('kissText4');
+    const t5 = document.getElementById('kissText5');
+    const t6 = document.getElementById('kissText6');
+    const t7 = document.getElementById('kissText7');
+    const t8 = document.getElementById('kissText8');
+    const t9 = document.getElementById('kissText9');
+    const meme = document.getElementById('kissMeme');
+    const img = document.getElementById('kissImg');
+    const img2 = document.getElementById('kissImg2');
+    if (t1) { t1.classList.remove('show'); t1.classList.remove('hide'); }
+    if (t2) { t2.classList.remove('show'); t2.classList.remove('hide'); }
+    if (t3) { t3.classList.remove('show'); t3.classList.remove('hide'); }
+    if (t4) { t4.classList.remove('show'); t4.classList.remove('hide'); }
+    if (t5) { t5.classList.remove('show'); t5.classList.remove('hide'); }
+    if (t6) { t6.classList.remove('show'); t6.classList.remove('hide'); }
+    if (t7) { t7.classList.remove('show'); t7.classList.remove('hide'); }
+    if (t8) { t8.classList.remove('show'); t8.classList.remove('hide'); }
+    if (t9) { t9.classList.remove('show'); t9.classList.remove('hide'); }
+    if (meme) { meme.classList.remove('show'); meme.classList.remove('hide'); }
+    if (img) { img.classList.remove('show'); img.classList.remove('hide'); }
+    if (img2) { img2.classList.remove('show'); img2.classList.remove('hide'); }
+  }
+
+  // ===== 密码验证 =====
+  const answerInput = document.getElementById('answer');
+  const errEl = document.getElementById('err');
+  const correct = ['小狗的先生', '小狗的主人', '狗狗的主人', '狗狗的先生'];
+  function checkAnswer() {
+    const v = answerInput.value.trim();
+    if (correct.includes(v)) {
+      errEl.textContent = '';
+      document.getElementById('modalMask').classList.add('show');
+    } else {
+      errEl.textContent = '答錯了，再想想。';
+      answerInput.value = '';
+      answerInput.focus();
+    }
+  }
+  function closeModal() {
+    document.getElementById('modalMask').classList.remove('show');
+    go(1);
+  }
+  answerInput.addEventListener('keydown', e => { if (e.key === 'Enter') checkAnswer(); });
+
+  // ===== 戳小狗（保留弹跳动画） =====
+  document.querySelectorAll('.dog-box').forEach(box => {
+    box.addEventListener('click', () => {
+      box.classList.remove('bounce');
+      void box.offsetWidth;
+      box.classList.add('bounce');
+    });
+  });
+
+  // ===== 许愿 =====
+  function confirmWish() {
+    const input = document.getElementById('wishInput');
+    const v = input.value.trim();
+    if (!v) {
+      input.focus();
+      input.placeholder = '先写下一个愿望吧~';
+      return;
+    }
+    document.getElementById('confirmMask').classList.add('show');
+  }
+  function rethinkWish() {
+    document.getElementById('confirmMask').classList.remove('show');
+    document.getElementById('wishInput').focus();
+  }
+  function submitWish() {
+    const v = document.getElementById('wishInput').value.trim();
+    document.getElementById('confirmMask').classList.remove('show');
+    // 推送愿望到 iPhone（Bark）
+    const barkKey = 'BARK_KEY';
+    const title = encodeURIComponent('🎂 收到一个新愿望');
+    const content = encodeURIComponent('对方的愿望：' + v);
+    fetch('https://api.day.app/' + barkKey + '/' + title + '/' + content)
+      .catch(() => {});
+    // 播放流星动画
+    const meteor = document.getElementById('meteorLayer');
+    meteor.classList.add('play');
+    // 流星动画 2.2s 后结束，弹出成功弹窗
+    setTimeout(() => {
+      meteor.classList.remove('play');
+      document.getElementById('successMask').classList.add('show');
+    }, 2200);
+    // 成功弹窗显示 1.5s 后自动跳转到祝福信页
+    setTimeout(() => {
+      document.getElementById('successMask').classList.remove('show');
+      go(5);
+    }, 3700);
+  }
+  // 成功弹窗点击也可关闭并跳转
+  document.getElementById('successMask').addEventListener('click', () => {
+    document.getElementById('successMask').classList.remove('show');
+    go(5);
+  });
+
+  // ===== 复制祝福信 =====
+  function copyLetter() {
+    const letter = document.getElementById('letter');
+    const text = letter.innerText;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert('已复制到剪贴板');
+      }).catch(() => {
+        fallbackCopy(text);
+      });
+    } else {
+      fallbackCopy(text);
+    }
+  }
+  function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    alert('已复制到剪贴板');
+  }
+</script>
+</body>
+</html>
