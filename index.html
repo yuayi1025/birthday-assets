@@ -983,7 +983,7 @@
     const v = document.getElementById('wishInput').value.trim();
     document.getElementById('confirmMask').classList.remove('show');
     // 推送愿望到 iPhone（Bark）
-    const barkKey = 'BARK_KEY';
+    const barkKey = 'NXVE7cd3iGUgUCipZzaVjW';
     const title = encodeURIComponent('🎂 收到一个新愿望');
     const content = encodeURIComponent('对方的愿望：' + v);
     fetch('https://api.day.app/' + barkKey + '/' + title + '/' + content)
